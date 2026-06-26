@@ -207,6 +207,31 @@ export default function MainScreen({ name, nickname }: MainScreenProps) {
           </p>
         </header>
 
+        {/* TOP HERO PHOTO BANNER */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, delay: 0.2 }}
+          className="w-full max-w-2xl bg-white/95 backdrop-blur-md rounded-3xl p-4 md:p-5 shadow-[0_20px_50px_rgba(225,29,72,0.15)] border border-rose-100 flex flex-col items-center relative group hover:shadow-[0_25px_60px_rgba(225,29,72,0.22)] transition-all duration-500"
+        >
+          {/* Glowing Red & Gold Frame */}
+          <div className="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-2xl overflow-hidden shadow-[0_12px_32px_rgba(225,29,72,0.2)] p-1 bg-gradient-to-r from-rose-600 via-amber-400 to-rose-500">
+            <div className="w-full h-full rounded-xl overflow-hidden bg-rose-50 flex items-center justify-center relative">
+              <img
+                src="https://i.ibb.co/9HfMtS4g/IMG-20260306-WA0007.jpg"
+                alt="My Beautiful Karuna"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute bottom-3 left-4 flex items-center gap-1.5 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                <Heart size={16} className="text-rose-500 fill-rose-500 animate-heartbeat" />
+                <span className="font-serif font-bold text-sm md:text-base tracking-wide">Karuna (My Aalu) ❤️</span>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
         {/* REVEAL CARDS ROW */}
         <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
           
