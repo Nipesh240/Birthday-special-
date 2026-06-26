@@ -270,7 +270,7 @@ export default function MainScreen({ name, nickname }: MainScreenProps) {
                   ) : (
                     <div className="relative w-full h-full">
                       <img
-                        src={photoError ? engagementPhoto : "1000009377.jpg"}
+                        src={photoError ? engagementPhoto : "https://i.ibb.co/ccwY3cVG/file-00000000abf8720bb6e02b4ec7005d50.png"}
                         alt="Baby and Me"
                         onError={() => setPhotoError(true)}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
