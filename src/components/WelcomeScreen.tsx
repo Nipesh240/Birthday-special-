@@ -136,27 +136,27 @@ export default function WelcomeScreen({ onOpen, nickname }: WelcomeScreenProps) 
         </div>
 
         {/* Text Details */}
-        <h2 className="font-serif text-2xl text-pink-600/90 font-medium tracking-wide mb-2">
+        <h2 className="font-serif text-2xl text-rose-600/95 font-semibold tracking-wide mb-2">
           A Magical Garden
         </h2>
         
-        <p className="font-cursive text-5xl text-amber-700/80 mb-6 font-semibold select-none leading-relaxed">
+        <p className="font-cursive text-5xl text-amber-600/90 mb-6 font-bold select-none leading-relaxed">
           For My Beautiful {nickname}
         </p>
 
-        <p className="font-sans text-sm text-gray-500/90 leading-relaxed mb-8 max-w-xs">
-          Step into a whimsical world filled with fresh Lilies, sweet Hearts, and your favorite Aalu. Press below to begin our birthday song.
+        <p className="font-sans text-sm text-gray-500/95 leading-relaxed mb-8 max-w-xs">
+          Step into a whimsical world filled with fresh Lilies, cozy sweet Hearts, and your favorite Aalu. Press below to begin our birthday song.
         </p>
 
-        {/* Romantic Trigger Button */}
+        {/* Romantic Trigger Button (Cozy Red & Gold) */}
         <motion.button
           id="open-with-love-btn"
           onClick={handleStart}
-          whileHover={{ scale: 1.05, boxShadow: '0 10px 25px rgba(244,143,177,0.4)' }}
+          whileHover={{ scale: 1.05, boxShadow: '0 10px 30px rgba(225,29,72,0.35)' }}
           whileTap={{ scale: 0.98 }}
-          className="relative px-8 py-4 bg-gradient-to-r from-pink-400 to-rose-400 hover:from-pink-500 hover:to-rose-500 text-white font-medium text-lg rounded-full shadow-[0_10px_20px_rgba(244,143,177,0.25)] flex items-center gap-2 cursor-pointer transition-all duration-300 animate-bounce"
+          className="relative px-8 py-4 bg-gradient-to-r from-rose-600 via-rose-500 to-amber-500 hover:from-rose-700 hover:to-amber-600 text-white font-semibold text-lg rounded-full shadow-[0_10px_25px_rgba(225,29,72,0.25)] flex items-center gap-2 cursor-pointer transition-all duration-300 animate-bounce"
         >
-          <span>Open with Love 💖</span>
+          <span>Open with Love ❤️✨</span>
         </motion.button>
 
         <div className="mt-6 flex items-center gap-2 text-xs text-pink-400 font-medium">
