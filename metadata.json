@@ -1,0 +1,6 @@
+{
+  "name": "Karuna's 19th Birthday",
+  "description": "A beautiful, romantic, and interactive 19th birthday card and game for Karuna Dahal, themed with elegant lilies.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
