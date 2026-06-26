@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Sparkles, Music, Play, Pause, Volume2, Upload, Camera, Heart } from 'lucide-react';
+import { Sparkles, Music, Play, Pause, Volume2, Upload, Camera, Heart, ZoomIn, ZoomOut, ChevronUp, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { romanticAudio } from '../utils/audio';
 import LoveLetter from './LoveLetter';
 import GameCanvas from './GameCanvas';
@@ -23,6 +23,9 @@ export default function MainScreen({ name, nickname }: MainScreenProps) {
   const [volume, setVolume] = useState(50);
   const [uploadedPhoto, setUploadedPhoto] = useState<string | null>(null);
   const [photoError, setPhotoError] = useState(false);
+  const [imgZoom, setImgZoom] = useState(115); // Default 115% zoom
+  const [imgX, setImgX] = useState(0); // Offset X in pixels
+  const [imgY, setImgY] = useState(15); // Offset Y in pixels (shifted slightly down by default to focus on her face!)
   
   // Backing floating particles state for background
   const [bgParticles, setBgParticles] = useState<Array<{ id: number; x: number; y: number; size: number; duration: number; type: 'petal' | 'heart' }>>([]);
@@ -212,23 +215,100 @@ export default function MainScreen({ name, nickname }: MainScreenProps) {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.2 }}
-          className="w-full max-w-2xl bg-white/95 backdrop-blur-md rounded-3xl p-4 md:p-5 shadow-[0_20px_50px_rgba(225,29,72,0.15)] border border-rose-100 flex flex-col items-center relative group hover:shadow-[0_25px_60px_rgba(225,29,72,0.22)] transition-all duration-500"
+          className="w-full max-w-2xl bg-white/95 backdrop-blur-md rounded-3xl p-6 md:p-8 shadow-[0_20px_50px_rgba(225,29,72,0.15)] border border-rose-100 flex flex-col items-center relative group hover:shadow-[0_25px_60px_rgba(225,29,72,0.22)] transition-all duration-500"
         >
-          {/* Glowing Red & Gold Frame */}
-          <div className="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-2xl overflow-hidden shadow-[0_12px_32px_rgba(225,29,72,0.2)] p-1 bg-gradient-to-r from-rose-600 via-amber-400 to-rose-500">
-            <div className="w-full h-full rounded-xl overflow-hidden bg-rose-50 flex items-center justify-center relative">
+          {/* Beautiful Digital Frame Wrapper with soft glow and rose/amber accent borders (Cozy Red & Gold) */}
+          <div className="relative w-full aspect-[4/3] max-w-lg rounded-3xl p-1.5 bg-gradient-to-tr from-rose-600 via-amber-400 to-rose-500 shadow-[0_15px_35px_rgba(225,29,72,0.25)] flex flex-col items-center justify-center overflow-hidden">
+            <div className="w-full h-full rounded-2xl overflow-hidden border border-white/20 bg-rose-50 flex items-center justify-center relative">
               <img
-                src="https://i.ibb.co/9HfMtS4g/IMG-20260306-WA0007.jpg"
+                src="https://i.ibb.co/XBPRJ7c/IMG-20260620-WA0022.jpg"
                 alt="My Beautiful Karuna"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                className="w-full h-full object-cover transition-transform duration-300"
+                style={{
+                  transform: `scale(${imgZoom / 100}) translate(${imgX}px, ${imgY}px)`,
+                  transformOrigin: 'center center'
+                }}
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-3 left-4 flex items-center gap-1.5 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                <Heart size={16} className="text-rose-500 fill-rose-500 animate-heartbeat" />
-                <span className="font-serif font-bold text-sm md:text-base tracking-wide">Karuna (My Aalu) ❤️</span>
+              {/* Vignette Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+              
+              {/* Caption inside the Frame */}
+              <div className="absolute bottom-4 inset-x-0 flex flex-col items-center justify-center text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)] z-10 px-3 text-center">
+                <div className="flex items-center gap-1.5 bg-black/40 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/10">
+                  <Heart size={14} className="text-rose-500 fill-rose-500 animate-pulse" />
+                  <span className="font-serif font-bold text-xs md:text-sm tracking-wide">Karuna (My Aalu) ❤️</span>
+                </div>
               </div>
             </div>
+          </div>
+
+          {/* Elegant Image Adjuster Toolbar */}
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3 bg-rose-50/75 border border-rose-100/60 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm z-10">
+            <span className="text-[10px] font-mono text-rose-700/80 uppercase font-bold tracking-wider mr-1">Position Portrait:</span>
+            
+            {/* Zoom Controls */}
+            <div className="flex items-center gap-1 bg-white/90 p-0.5 rounded-full shadow-sm border border-rose-100">
+              <button 
+                onClick={() => setImgZoom(prev => Math.max(80, prev - 5))}
+                className="p-1 hover:bg-rose-100 rounded-full text-rose-600 transition-colors cursor-pointer"
+                title="Zoom Out"
+              >
+                <ZoomOut size={12} />
+              </button>
+              <span className="text-[10px] font-mono font-bold text-rose-700 w-8 text-center">{imgZoom}%</span>
+              <button 
+                onClick={() => setImgZoom(prev => Math.min(250, prev + 5))}
+                className="p-1 hover:bg-rose-100 rounded-full text-rose-600 transition-colors cursor-pointer"
+                title="Zoom In"
+              >
+                <ZoomIn size={12} />
+              </button>
+            </div>
+
+            {/* Position Pad Controls */}
+            <div className="flex items-center gap-1 bg-white/90 p-0.5 rounded-full shadow-sm border border-rose-100">
+              <button 
+                onClick={() => setImgY(prev => prev - 5)}
+                className="p-1 hover:bg-rose-100 rounded-full text-rose-600 transition-colors cursor-pointer"
+                title="Move Up"
+              >
+                <ChevronUp size={12} />
+              </button>
+              <button 
+                onClick={() => setImgY(prev => prev + 5)}
+                className="p-1 hover:bg-rose-100 rounded-full text-rose-600 transition-colors cursor-pointer"
+                title="Move Down"
+              >
+                <ChevronDown size={12} />
+              </button>
+              <button 
+                onClick={() => setImgX(prev => prev - 5)}
+                className="p-1 hover:bg-rose-100 rounded-full text-rose-600 transition-colors cursor-pointer"
+                title="Move Left"
+              >
+                <ChevronLeft size={12} />
+              </button>
+              <button 
+                onClick={() => setImgX(prev => prev + 5)}
+                className="p-1 hover:bg-rose-100 rounded-full text-rose-600 transition-colors cursor-pointer"
+                title="Move Right"
+              >
+                <ChevronRight size={12} />
+              </button>
+            </div>
+
+            {/* Reset Button */}
+            <button
+              onClick={() => {
+                setImgZoom(115);
+                setImgX(0);
+                setImgY(15);
+              }}
+              className="px-2.5 py-0.5 bg-white hover:bg-rose-50 text-[10px] font-bold text-rose-600 border border-rose-200 rounded-full shadow-sm transition-colors cursor-pointer"
+            >
+              Reset
+            </button>
           </div>
         </motion.div>
 
@@ -270,7 +350,7 @@ export default function MainScreen({ name, nickname }: MainScreenProps) {
                   ) : (
                     <div className="relative w-full h-full">
                       <img
-                        src={photoError ? engagementPhoto : "https://i.ibb.co/ccwY3cVG/file-00000000abf8720bb6e02b4ec7005d50.png"}
+                        src={photoError ? engagementPhoto : "https://i.ibb.co/9HfMtS4g/IMG-20260306-WA0007.jpg"}
                         alt="Baby and Me"
                         onError={() => setPhotoError(true)}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
